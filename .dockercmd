@@ -1,0 +1,40 @@
+#!/bin/bash
+
+repo_name=$(basename $(pwd))
+docker_image="cpp-dev-${repo_name}-env"
+docker_name="cpp-dev-${repo_name}"
+
+# Build the image
+dockerbuild() {
+  docker build -t ${docker_image} .
+}
+
+# Exec command in docker
+cppdev() {
+  docker exec ${docker_name} "$@"
+}
+
+# Setup initial container and run it in detached mod.
+dockerenter() {
+  docker run -dit --name=${docker_name} --user $(id -u):$(id -g) --mount type=bind,src=$(pwd),dst=$(pwd) -w $(pwd) ${docker_image}
+}
+
+# Up container
+dockerstart() {
+  docker start ${docker_name}
+}
+
+# Down container
+dockerstop() {
+  docker stop ${docker_name}
+}
+
+# Attach to running container
+# ctrl+p and ctrl+q to detach
+dockerattach() {
+  docker attach ${docker_name}
+}
+
+dockerrm() {
+  docker container rm ${docker_name}
+}
