@@ -33,7 +33,7 @@
       "name": "conan",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/conan/conan_toolchain.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/conan_toolchain.cmake",
         "CMAKE_POLICY_DEFAULT_CMP0091": "NEW"
       }
     },
@@ -122,7 +122,7 @@
       "cacheVariables": {
         "ENABLE_COVERAGE": "ON",
         "CMAKE_BUILD_TYPE": "Coverage",
-        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage -fkeep-inline-functions -fkeep-static-functions",
+        "CMAKE_CXX_FLAGS_COVERAGE": "-Og -g --coverage",
         "CMAKE_EXE_LINKER_FLAGS_COVERAGE": "--coverage",
         "CMAKE_SHARED_LINKER_FLAGS_COVERAGE": "--coverage",
         "CMAKE_MAP_IMPORTED_CONFIG_COVERAGE": "Coverage;RelWithDebInfo;Release;Debug;"
@@ -130,10 +130,7 @@
     },
     {
       "name": "ci-coverage",
-      "inherits": ["coverage-linux", "dev-mode", "conan"],
-      "cacheVariables": {
-        "COVERAGE_HTML_COMMAND": ""
-      }
+      "inherits": ["coverage-linux", "dev-mode", "conan"]
     },
     {
       "name": "ci-sanitize",

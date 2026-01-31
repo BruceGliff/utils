@@ -4,10 +4,8 @@ include(cmake/prelude.cmake)
 
 project(
     ranges
-    VERSION 0.1.0
+    VERSION 1.0.0
     DESCRIPTION "header-only library with uncommon ranges"
-    HOMEPAGE_URL "https://example.com/"
-    LANGUAGES NONE
 )
 
 include(cmake/project-is-top-level.cmake)
@@ -15,21 +13,21 @@ include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
-add_library(ranges_ranges INTERFACE)
-add_library(ranges::ranges ALIAS ranges_ranges)
+add_library(bgf_ranges INTERFACE)
+add_library(bgf::ranges ALIAS bgf_ranges)
 
 set_property(
-    TARGET ranges_ranges PROPERTY
+    TARGET bgf_ranges PROPERTY
     EXPORT_NAME ranges
 )
 
 target_include_directories(
-    ranges_ranges ${warning_guard}
+    bgf_ranges ${warning_guard}
     INTERFACE
     "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 )
 
-target_compile_features(ranges_ranges INTERFACE cxx_std_20)
+target_compile_features(bgf_ranges INTERFACE cxx_std_20)
 
 # ---- Install rules ----
 

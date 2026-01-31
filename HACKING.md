@@ -135,11 +135,10 @@ additional `-t <target>` flag:
 
 Available if `ENABLE_COVERAGE` is enabled. This target processes the output of
 the previously run tests when built with coverage configuration. The commands
-this target runs can be found in the `COVERAGE_TRACE_COMMAND` and
-`COVERAGE_HTML_COMMAND` cache variables. The trace command produces an info
+this target runs can be found in the `COVERAGE_TRACE_COMMAND` cache variables. The trace command produces an info
 file by default, which can be submitted to services with CI integration. The
 HTML command uses the trace command's output to generate an HTML document to
-`<binary-dir>/coverage_html` by default.
+`<binary-dir>/index.html` by default.
 
 #### `docs`
 
@@ -160,7 +159,7 @@ them respectively. Customization available using the `SPELL_COMMAND` cache
 variable.
 
 #### `docker`
-Refere to `.dockercmd` to list main docker commands.
+Refer to `.dockercmd` to list main docker commands.
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/

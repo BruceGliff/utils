@@ -13,3 +13,4 @@ compile_commands.json
 conan_cache_*.tgz
 *.swp
 *.help
+install/

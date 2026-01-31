@@ -1,5 +1,10 @@
 include(cmake/folders.cmake)
 
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+  file(CREATE_LINK "${CMAKE_BINARY_DIR}/compile_commands.json"
+       "${CMAKE_SOURCE_DIR}/compile_commands.json" SYMBOLIC)
+endif()
+
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(test)

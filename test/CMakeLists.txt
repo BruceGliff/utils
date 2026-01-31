@@ -8,7 +8,7 @@ include(../cmake/folders.cmake)
 # ---- Dependencies ----
 
 if(PROJECT_IS_TOP_LEVEL)
-  find_package(ranges REQUIRED)
+  find_package(bgf_ranges REQUIRED)
   enable_testing()
 endif()
 
@@ -20,7 +20,7 @@ include(Catch)
 add_executable(ranges_test source/ranges_test.cpp)
 target_link_libraries(
     ranges_test PRIVATE
-    ranges::ranges
+    bgf::ranges
     Catch2::Catch2WithMain
 )
 target_compile_features(ranges_test PRIVATE cxx_std_20)

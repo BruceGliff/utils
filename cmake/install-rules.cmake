@@ -14,7 +14,7 @@ include(GNUInstallDirs)
 
 # find_package(<package>) call for consumers to find this project
 # should match the name of variable set in the install-config.cmake script
-set(package ranges)
+set(package bgf_ranges)
 
 install(
     DIRECTORY include/
@@ -23,8 +23,8 @@ install(
 )
 
 install(
-    TARGETS ranges_ranges
-    EXPORT rangesTargets
+    TARGETS bgf_ranges
+    EXPORT bgf_rangesTargets
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
@@ -56,8 +56,8 @@ install(
 )
 
 install(
-    EXPORT rangesTargets
-    NAMESPACE ranges::
+    EXPORT bgf_rangesTargets
+    NAMESPACE bgf::
     DESTINATION "${ranges_INSTALL_CMAKEDIR}"
     COMPONENT ranges_Development
 )
