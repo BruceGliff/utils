@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.14)
 include(cmake/prelude.cmake)
 
 project(
-    ranges
-    VERSION 1.0.0
-    DESCRIPTION "header-only library with uncommon ranges"
+    bgfutils
+    VERSION 2.0.0
+    DESCRIPTION "header-only library with uncommon utils"
 )
 
 include(cmake/project-is-top-level.cmake)
@@ -13,21 +13,21 @@ include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
-add_library(bgf_ranges INTERFACE)
-add_library(bgf::ranges ALIAS bgf_ranges)
+add_library(bgfutils INTERFACE)
+add_library(bgf::utils ALIAS bgfutils)
 
 set_property(
-    TARGET bgf_ranges PROPERTY
-    EXPORT_NAME ranges
+    TARGET bgfutils PROPERTY
+    EXPORT_NAME utils
 )
 
 target_include_directories(
-    bgf_ranges ${warning_guard}
+    bgfutils ${warning_guard}
     INTERFACE
     "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 )
 
-target_compile_features(bgf_ranges INTERFACE cxx_std_20)
+target_compile_features(bgfutils INTERFACE cxx_std_20)
 
 # ---- Install rules ----
 
@@ -37,12 +37,12 @@ endif()
 
 # ---- Developer mode ----
 
-if(NOT ranges_DEVELOPER_MODE)
+if(NOT utils_DEVELOPER_MODE)
   return()
 elseif(NOT PROJECT_IS_TOP_LEVEL)
   message(
       AUTHOR_WARNING
-      "Developer mode is intended for developers of ranges"
+      "Developer mode is intended for developers of utils"
   )
 endif()
 

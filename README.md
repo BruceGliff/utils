@@ -1,18 +1,29 @@
-# ranges -- Library with indispensable ranges and views
+# utils -- Library with indispensable utils, ranges and views
 
 ## Quick Navigation
+- [Includes](#includes)
 - [flat_view - Recursive Flattening View](#flat_view---recursive-flattening-view)
   - [Overview](#overview)
   - [Core Features](#core-features)
   - [Usage Examples](#usage-examples)
   - [Advanced Usage](#advanced-usage)
-  - [Requirements](#requirements)
-  - [Installation](#installation)
   - [Limitations](#limitations)
+- [Requirements](#requirements)
+- [Installation](#installation)
 - [Code of Conduct](#code-of-conduct)
 - [Contributing](#contributing)
 
 ---
+
+## Includes
+
+```cpp
+#include "bgf/utils/utils.hpp" // Includes features.
+
+#include "bgf/utils/ranges.hpp" // Includes ranges.
+
+#include "bgf/utils/ranges/flat.hpp" // Includes flat_view.
+```
 
 ## flat_view - Recursive Flattening View
 
@@ -20,6 +31,11 @@
 
 `bgf::flat_view` is a C++20 header-only library that provides **recursive flattening views** for nested containers. It allows you to traverse deeply nested data structures or ranges as if they were flat ranges, with compile-time control over flattening depth and target types.
 This is ideal for working with complex, nested data structures where you need to process all elements regardless of their depth in the hierarchy.
+
+Header:
+```cpp
+#include "bgf/utils/ranges/flat.hpp"
+```
 
 ### Core Features
 
@@ -80,7 +96,7 @@ auto result2 = nested_vec | bgf::views::flat.nested<int>;
 #### Simple Flattening
 
 ```cpp
-#include "bgf/ranges/ranges.hpp"
+#include "bgf/utils/ranges.hpp"
 
 std::vector<std::set<int>> data{{1, 2, 3}, {4, 5}, {}, {6}};
 
@@ -173,28 +189,22 @@ auto complex = data
     | bgf::views::flat.depth<2>;
 ```
 
-### Requirements
+### Limitations
+- Produces forward iterator only.
+
+## Requirements
 - C++20 compatible compiler
 - Standard Library with `<ranges>` support
 - Header-only, no linking required
 
-### Installation
+## Installation
 
 Add as library via `cmake`.
 
 ```cmake
-find_package(bgf_ranges REQUIRED)
-target_link_libraries(${PROJECT} bgf::ranges)
+find_package(bgfutils REQUIRED)
+target_link_libraries(${PROJECT} bgf::utils)
 ```
-
-Include the `bgf/ranges/ranges.hpp` header in your project:
-
-```cpp
-#include "bgf/ranges/ranges.hpp"
-```
-
-### Limitations
-- Produces forward iterator only.
 
 ## Code of Conduct
 

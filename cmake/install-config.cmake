@@ -1,7 +1,7 @@
-set(ranges_FOUND YES)
+set(bgfutils_FOUND YES)
 
 include(CMakeFindDependencyMacro)
 
-if(ranges_FOUND)
-  include("${CMAKE_CURRENT_LIST_DIR}/bgf_rangesTargets.cmake")
+if(bgfutils_FOUND)
+  include("${CMAKE_CURRENT_LIST_DIR}/bgfutilsTargets.cmake")
 endif()

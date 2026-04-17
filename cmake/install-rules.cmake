@@ -1,6 +1,6 @@
 if(PROJECT_IS_TOP_LEVEL)
   set(
-      CMAKE_INSTALL_INCLUDEDIR "include/ranges-${PROJECT_VERSION}"
+      CMAKE_INSTALL_INCLUDEDIR "include/bgfutils-${PROJECT_VERSION}"
       CACHE STRING ""
   )
   set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
@@ -14,17 +14,17 @@ include(GNUInstallDirs)
 
 # find_package(<package>) call for consumers to find this project
 # should match the name of variable set in the install-config.cmake script
-set(package bgf_ranges)
+set(package bgfutils)
 
 install(
     DIRECTORY include/
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-    COMPONENT ranges_Development
+    COMPONENT utils_Development
 )
 
 install(
-    TARGETS bgf_ranges
-    EXPORT bgf_rangesTargets
+    TARGETS bgfutils
+    EXPORT bgfutilsTargets
     INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
@@ -36,30 +36,30 @@ write_basic_package_version_file(
 
 # Allow package maintainers to freely override the path for the configs
 set(
-    ranges_INSTALL_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/${package}"
+    bgfutils_INSTALL_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/${package}"
     CACHE STRING "CMake package config location relative to the install prefix"
 )
-set_property(CACHE ranges_INSTALL_CMAKEDIR PROPERTY TYPE PATH)
-mark_as_advanced(ranges_INSTALL_CMAKEDIR)
+set_property(CACHE bgfutils_INSTALL_CMAKEDIR PROPERTY TYPE PATH)
+mark_as_advanced(bgfutils_INSTALL_CMAKEDIR)
 
 install(
     FILES cmake/install-config.cmake
-    DESTINATION "${ranges_INSTALL_CMAKEDIR}"
+    DESTINATION "${bgfutils_INSTALL_CMAKEDIR}"
     RENAME "${package}Config.cmake"
-    COMPONENT ranges_Development
+    COMPONENT utils_Development
 )
 
 install(
     FILES "${PROJECT_BINARY_DIR}/${package}ConfigVersion.cmake"
-    DESTINATION "${ranges_INSTALL_CMAKEDIR}"
-    COMPONENT ranges_Development
+    DESTINATION "${bgfutils_INSTALL_CMAKEDIR}"
+    COMPONENT utils_Development
 )
 
 install(
-    EXPORT bgf_rangesTargets
+    EXPORT bgfutilsTargets
     NAMESPACE bgf::
-    DESTINATION "${ranges_INSTALL_CMAKEDIR}"
-    COMPONENT ranges_Development
+    DESTINATION "${bgfutils_INSTALL_CMAKEDIR}"
+    COMPONENT bgfutils_Development
 )
 
 if(PROJECT_IS_TOP_LEVEL)
