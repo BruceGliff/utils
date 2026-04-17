@@ -4,7 +4,7 @@ include(cmake/prelude.cmake)
 
 project(
     bgfutils
-    VERSION 2.0.0
+    VERSION 2.1.0
     DESCRIPTION "header-only library with uncommon utils"
 )
 

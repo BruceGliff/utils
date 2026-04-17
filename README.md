@@ -1,29 +1,95 @@
 # utils -- Library with indispensable utils, ranges and views
 
-## Quick Navigation
+## Table of Contents
+
+<!--toc-->
+- [Table of Contents](#table-of-contents)
 - [Includes](#includes)
-- [flat_view - Recursive Flattening View](#flat_view---recursive-flattening-view)
-  - [Overview](#overview)
-  - [Core Features](#core-features)
-  - [Usage Examples](#usage-examples)
-  - [Advanced Usage](#advanced-usage)
-  - [Limitations](#limitations)
+- [ctmap - compile time map](#ctmap---compile-time-map)
+    * [Overview](#overview)
+    * [Core Features](#core-features)
+    * [Usage Examples](#usage-examples)
+- [flat_view - Recursive Flattening View](#flat-view---recursive-flattening-view)
+    * [Overview](#overview-1)
+    * [Core Features](#core-features-1)
+    * [Usage Examples](#usage-examples-1)
+    * [Advanced Usage](#advanced-usage)
+    * [Limitations](#limitations)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Code of Conduct](#code-of-conduct)
 - [Contributing](#contributing)
 
----
+<!-- tocstop -->
 
 ## Includes
 
 ```cpp
 #include "bgf/utils/utils.hpp" // Includes features.
 
+#include "bgf/utils/map.hpp" // Includes maps.
 #include "bgf/utils/ranges.hpp" // Includes ranges.
+
+#include "bgf/utils/map/ctmap.hpp" // Includes ctmap.
 
 #include "bgf/utils/ranges/flat.hpp" // Includes flat_view.
 ```
+
+## ctmap - compile time map
+
+### Overview  
+
+`bgf::ctmap` is a **compile‑time bidirectional map** that let you associate:
+
+* **Types -- Types**  
+* **Values -- Types**  
+* **Types -- Values**  
+* **Values -- Values**
+
+All mappings are resolved at compile time, enabling zero‑runtime‑overhead look‑ups and static assertions. The library works with primitive types, user‑defined structs, and even enum values, making it a versatile tool for metaprogramming tasks such as tag dispatch, type‑based configuration, and static reflection.
+
+### Core Features  
+
+| Feature | Description | Example (from tests) |
+|---------|-------------|----------------------|
+| **Type‑to‑Type mapping** (`t2t`) | Retrieve the counterpart type for a given source type. | `static_assert(std::is_same_v<m::t2t<int>, float>);` |
+| **Value‑to‑Type mapping** (`v2t`) | Get the type associated with a compile‑time constant (including NTTPs). | `static_assert(std::is_same_v<m::v2t<4>, double>);` |
+| **Type‑to‑Value mapping** (`t2v`) | Find the compile‑time value linked to a type. | `static_assert(m::t2v<double> == 4);` |
+| **Value‑to‑Value mapping** (`v2v`) | Translate one compile‑time value to another. | `static_assert(m::v2v<5> == 4);` |
+| **Enum support** | Works with plain enums, enum classes, and mixed enum‑type mappings. | `static_assert(m::t2t<e_a> == e_b);` |
+| **Bidirectional consistency** | Each mapping is invertible – the reverse lookup yields the original key. | `static_assert(m::v2v<e_c::a> == e_c::b);` |
+| **Custom non‑type template parameters** | Allows NTTPs of user‑defined types (e.g., structs). | `static_assert(std::is_same_v<m::v2t<nttp{1}>, nttp>);` |
+| **Static verification** | All look‑ups are verified with `static_assert`, ensuring compile‑time correctness. | See the test file `map_test.cpp` for full coverage. |
+
+---  
+
+### Usage Examples
+
+```cpp
+using myMap = bgf::ctmap<
+    bgf::t2t<int, float>,
+    bgf::v2t<42, std::string>,
+    bgf::v2v<'x', 'y'>>;
+
+// Type -- Type
+static_assert(std::is_same_v<myMap::t2t<int>, float>);
+static_assert(std::is_same_v<myMap::t2t<float>, int>);
+
+// Value -- Type
+static_assert(std::is_same_v<myMap::v2t<42>, std::string>);
+
+// Type -- Value
+static_assert(myMap::t2v<std::string> == 42);
+
+// Value -- Value
+static_assert(myMap::v2v<'x'> == 'y');
+static_assert(myMap::v2v<'y'> == 'x');
+
+```
+
+---  
+
+For more detailed usage, refer to the test file `map_test.cpp`.
 
 ## flat_view - Recursive Flattening View
 

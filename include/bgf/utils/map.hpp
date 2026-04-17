@@ -1,6 +1,6 @@
 /**
- * This header provides a interface to all utils in the `bgf::` library.
- *  It is designed to be included as a single point of access.
+ * This header provides a unified interface to all map implementations
+ * in the `bgf::` library.
  *
  * @author [Ilya Andreev]
  *
@@ -12,5 +12,4 @@
 
 #pragma once
 
-#include "map.hpp"
-#include "ranges.hpp"
+#include "map/ctmap.hpp"
