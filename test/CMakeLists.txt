@@ -18,6 +18,7 @@ include(Catch)
 # ---- Tests ----
 
 add_subdirectory(ranges)
+add_subdirectory(map)
 
 # ---- End-of-file commands ----
 
